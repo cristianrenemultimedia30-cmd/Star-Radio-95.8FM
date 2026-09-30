@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | Star Radio 95.8 FM</title>
+    <meta name="description" content="Escríbenos, visítanos o llámanos. Dirección, horarios de atención y formulario de contacto de Star Radio 95.8 FM en Campoalegre, Huila.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./CSS/estilo.css">
+    <!-- nosotros.css aporta la portada interna y las secciones claras que comparten las páginas internas -->
+    <link rel="stylesheet" href="./CSS/nosotros.css">
+    <link rel="stylesheet" href="./CSS/contacto.css">
+</head>
+<body>
+
+    <header class="con-fondo">
+        <a href="index.html" class="logo">
+            <img src="./IMG/1x/LOGO EMPRESA.png" alt="Star Radio 95.8 FM">
+        </a>
+        <nav aria-label="Principal">
+            <ul class="menu">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="nosotros.html">Nosotros</a></li>
+                <li><a href="servicios.html">Servicios</a></li>
+                <li><a href="contacto.html" aria-current="page">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="hero-interno">
+            <div class="contenedor">
+                <h1>Escríbenos, te respondemos</h1>
+                <p>Para anunciar tu negocio, mandar un saludo al aire o resolver una duda.</p>
+            </div>
+        </section>
+
+        <!-- FORMULARIO + CANALES -->
+        <section class="claro bloque" id="formulario">
+            <div class="contenedor contacto-grid">
+
+                <div>
+                    <h2>Déjanos tu mensaje</h2>
+
+                    <!-- TODO: crea un formulario gratis en formspree.io, copia su código y reemplaza TU_CODIGO en "action" -->
+                    <form id="form-contacto" action="https://formspree.io/f/TU_CODIGO" method="POST">
+                        <div class="campo">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" id="nombre" name="nombre" autocomplete="name" required>
+                        </div>
+                        <div class="campo">
+                            <label for="correo">Correo electrónico</label>
+                            <input type="email" id="correo" name="correo" autocomplete="email" required>
+                        </div>
+                        <div class="campo">
+                            <label for="mensaje">Mensaje</label>
+                            <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+                        </div>
+
+                        <!-- Campo trampa contra robots: las personas no lo ven -->
+                        <input type="text" name="_gotcha" class="trampa" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+                        <!-- AVISO DE PRIVACIDAD -->
+                        <div class="privacidad">
+                            <input type="checkbox" id="acepto" name="acepto" required>
+                            <label for="acepto">Acepto que Star Radio 95.8 FM use mis datos solo para responder este mensaje.</label>
+                        </div>
+                        <p class="privacidad-texto">
+                            Guardamos tu nombre y correo únicamente para contestarte. No los vendemos ni los compartimos con terceros, y puedes pedir que los borremos escribiéndonos. Tratamos tus datos según la Ley 1581 de 2012 (protección de datos personales en Colombia).
+                            <!-- TODO: si tienes una política de privacidad completa, enlázala aquí: <a href="politica-de-privacidad.html">Leer política completa</a> -->
+                        </p>
+
+                        <button type="submit" class="btn btn-oscuro">Enviar mensaje</button>
+                        <p id="estado-envio" role="status" aria-live="polite"></p>
+                    </form>
+                </div>
+
+                <aside>
+                    <h2>Otras formas de contactarnos</h2>
+                    <dl class="datos">
+                        <div>
+                            <dt>Radio</dt>
+                            <dd>95.8 FM</dd>
+                        </div>
+                        <div>
+                            <dt>Aplicación</dt>
+                            <dd>Star Radio Campoalegre</dd>
+                        </div>
+                        <div>
+                            <dt>Redes sociales</dt>
+                            <dd>@staradiocampoalegre</dd>
+                        </div>
+                    </dl>
+
+                    <!-- TODO: reemplaza cada "#" por el enlace real -->
+                    <div class="botones botones-izq">
+                        <a href="#" class="btn btn-oscuro">WhatsApp</a>
+                        <a href="#" class="btn btn-borde">Facebook</a>
+                        <a href="#" class="btn btn-borde">Instagram</a>
+                    </div>
+                </aside>
+
+            </div>
+        </section>
+
+        <!-- UBICACIÓN Y HORARIOS -->
+        <section class="section bloque" id="ubicacion">
+            <div class="contenedor">
+                <h2>Visítanos en Campoalegre</h2>
+
+                <div class="ubicacion-grid">
+                    <!-- TODO: cambia la dirección y los horarios por los reales -->
+                    <dl class="datos datos-claro">
+                        <div>
+                            <dt>Dirección</dt>
+                            <dd>Calle 00 # 00-00, Campoalegre, Huila</dd>
+                        </div>
+                        <div>
+                            <dt>Horario de atención</dt>
+                            <dd>Lunes a viernes: 8:00 a. m. – 12:00 m. y 2:00 – 6:00 p. m.<br>Sábados: 8:00 a. m. – 12:00 m.</dd>
+                        </div>
+                        <div>
+                            <dt>Antes de venir</dt>
+                            <dd>Escríbenos por WhatsApp para confirmar que te podemos atender.</dd>
+                        </div>
+                    </dl>
+
+                    <!-- TODO: cuando tengas la dirección exacta, en Google Maps usa Compartir > Insertar un mapa y pega aquí el src -->
+                    <iframe class="mapa" title="Mapa de Campoalegre, Huila" loading="lazy"
+                        src="https://www.google.com/maps?q=Campoalegre,+Huila&output=embed"></iframe>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="pie">
+        <div class="contenedor pie-columnas">
+            <div class="pie-marca">
+                <a href="index.html" class="pie-logo">
+                    <img src="./IMG/1x/LOGO EMPRESA.png" alt="Star Radio 95.8 FM">
+                </a>
+                <p>Tu voz comunitaria desde el corazón de Campoalegre, Huila.</p>
+            </div>
+
+            <nav aria-label="Pie de página">
+                <h3>Secciones</h3>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="servicios.html">Servicios</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+
+            <div>
+                <h3>Escúchanos</h3>
+                <ul>
+                    <li>Radio 95.8 FM</li>
+                    <li>App Star Radio Campoalegre</li>
+                    <li>@staradiocampoalegre</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="contenedor pie-final">
+            <p>© <span id="anio">2026</span> Star Radio 95.8 FM. Todos los derechos reservados.</p>
+            <p>Al servicio de la comunidad. Patrocinado por Asociación de Productores Locales.</p>
+        </div>
+    </footer>
+
+    <script src="./JS/contacto.js"></script>
+</body>
+</html>

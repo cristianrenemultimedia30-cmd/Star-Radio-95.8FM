@@ -1,0 +1,970 @@
+/* ============================================================
+   Star Radio 95.8 FM
+   Paleta tomada del propio póster: marrón del banner, naranja
+   del atardecer, morado del cielo y crema como fondo claro.
+   ============================================================ */
+:root {
+    --marron: #1f1912;
+    --marron-profundo: #15100b;
+    --crema: #f6efe2;
+    --texto: #2a2118;
+    --naranja: #f2a33a;
+    --anochecer: #2d2542;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+}
+
+body {
+    background: var(--marron);
+    color: var(--crema);
+}
+
+section[id] {
+    scroll-margin-top: 4.5rem;   /* que el encabezado fijo no tape el título al navegar */
+}
+#inicio {
+    scroll-margin-top: 0;
+}
+
+a:focus-visible {
+    outline: 3px solid var(--marron);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 5px #fff;
+}
+
+/* ---------- Encabezado fijo ---------- */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem 1.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 999;
+    transition: background-color 0.3s, box-shadow 0.3s, padding 0.3s;
+}
+
+/* Al bajar, el encabezado se vuelve sólido para que siempre se lea
+   (lo activa logica.js agregando la clase "con-fondo") */
+header.con-fondo {
+    padding: 0.55rem 1.75rem;
+    background-color: rgba(246, 239, 226, 0.94);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.25);
+}
+
+/* Con el fondo crema, el menú pasa a texto oscuro */
+header.con-fondo .menu li a {
+    color: var(--texto);
+    text-shadow: none;
+}
+
+header.con-fondo .logo img {
+    filter: none;
+}
+
+/* ---------- Logo en la esquina superior izquierda ---------- */
+.logo {
+    --ancho-logo: clamp(96px, 9vw, 140px);   /* tamaño del logo: cámbialo aquí */
+    display: block;
+    line-height: 0;
+    text-decoration: none;
+}
+
+header.con-fondo .logo {
+    --ancho-logo: 72px;   /* el logo se achica al bajar */
+}
+
+.logo img {
+    display: block;
+    width: var(--ancho-logo);
+    height: auto;
+    /* El PNG trae margen transparente (9 % a la izquierda y arriba).
+       Estos márgenes negativos lo compensan para que lo que se ve
+       quede pegado a la esquina. */
+    margin-left: calc(var(--ancho-logo) * -0.09);
+    margin-top: calc(var(--ancho-logo) * -0.085);
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+    transition: width 0.3s, margin 0.3s;
+}
+
+.menu {
+    list-style-type: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.menu li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    text-shadow: 0 1px 8px rgba(20, 10, 30, 0.5);
+    padding-bottom: 0.25rem;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+}
+
+.menu li a:hover {
+    border-bottom-color: var(--naranja);
+}
+
+/* ---------- Escena parallax (imagen principal) ---------- */
+.parallax {
+    height: 100vh;
+    overflow: hidden;   /* lo que sale del cuadro se recorta */
+    position: relative;
+}
+
+/* Todas las capas ocupan toda la escena y quedan alineadas abajo.
+   Se mueven con transform (lo aplica logica.js), que es más fluido
+   que animar left / right / bottom. */
+.parallax img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center bottom;
+    pointer-events: none;
+    user-select: none;
+    will-change: transform;
+}
+
+/* Titular + eslogan + botones, sobre el cielo y detrás de los personajes.
+   Los tamaños usan vw y vh para que quepa también en pantallas bajas. */
+.hero-texto {
+    position: absolute;
+    top: 11%;
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+    width: min(92%, 900px);
+    text-align: center;
+    color: #fff;
+    text-shadow: 0 2px 18px rgba(20, 10, 30, 0.55);
+    will-change: transform;
+}
+
+.hero-texto h1 {
+    font-size: clamp(2rem, min(5.4vw, 7.5vh), 4.6rem);
+    line-height: 1.05;
+    font-weight: 700;
+}
+
+.hero-texto p {
+    font-size: clamp(1rem, min(1.7vw, 2.6vh), 1.4rem);
+    margin: 0.6rem 0 1.4rem;
+}
+
+/* ---------- Botones ---------- */
+.botones {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.8rem 1.7rem;
+    border: 2px solid transparent;
+    border-radius: 999px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    text-shadow: none;
+    transition: transform 0.2s, background-color 0.2s, color 0.2s;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn-primario {
+    background: var(--naranja);
+    color: var(--marron);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+.btn-primario:hover {
+    background: #ffb955;
+}
+
+.btn-secundario {
+    background: rgba(31, 25, 18, 0.55);
+    border-color: #fff;
+    color: #fff;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.btn-secundario:hover {
+    background: rgba(31, 25, 18, 0.8);
+}
+
+.btn-oscuro {
+    background: var(--marron);
+    color: #fff;
+}
+
+.btn-oscuro:hover {
+    background: #000;
+}
+
+.btn-borde {
+    border-color: var(--marron);
+    color: var(--marron);
+}
+
+.btn-borde:hover {
+    background: var(--marron);
+    color: #fff;
+}
+
+/* ---------- Estructura común de las secciones ---------- */
+.bloque {
+    padding: clamp(3.5rem, 8vw, 6.5rem) clamp(1.25rem, 6vw, 6rem);
+}
+
+.contenedor {
+    max-width: 1120px;
+    margin-inline: auto;
+}
+
+.bloque h2 {
+    font-size: clamp(1.9rem, 4vw, 3rem);
+    line-height: 1.15;
+    font-weight: 700;
+}
+
+.bloque p {
+    line-height: 1.65;
+}
+
+.intro {
+    max-width: 60ch;
+    margin-top: 0.8rem;
+    font-size: 1.1rem;
+}
+
+/* ---------- Nosotros ---------- */
+.section {
+    background-color: var(--marron);
+    color: var(--crema);
+}
+
+.nosotros {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(1.5rem, 5vw, 4rem);
+    align-items: start;
+}
+
+.nosotros p {
+    max-width: 55ch;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+/* ---------- Servicios ---------- */
+.servicios {
+    background-color: var(--crema);
+    color: var(--texto);
+}
+
+.servicios-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 2.5rem 2rem;
+    margin-top: 3rem;
+}
+
+.servicio {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-top: 6px solid var(--acento);
+    padding-top: 1.5rem;
+}
+
+
+/* ===== Tarjetas de "Lo que encuentras en Star Radio" =====
+   Reemplaza en estilo.css el bloque ".servicio img { ... }" por este.
+   Todas las imágenes ahora son cuadradas y con el mismo encuadre. */
+.servicio {
+    align-items: stretch;
+}
+
+/* Recuadro: proporción fija 4:5 con un fondo suave del color de la tarjeta.
+   La imagen se ajusta completa dentro (sin recortarse) y apoyada abajo. */
+.servicio .marco {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;            /* el zoom se queda dentro del recuadro */
+    margin-bottom: 1.2rem;
+    padding: 0.9rem 0.9rem 0;
+    box-sizing: border-box;
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--acento) 16%, transparent);
+}
+
+.servicio .marco img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center bottom;
+    margin: 0;
+    filter: drop-shadow(0 6px 10px rgba(42, 33, 24, 0.25));
+    transform-origin: center bottom;
+    transition: transform 0.4s ease;
+}
+
+.servicio:hover .marco img,
+.servicio .marco:focus-within img {
+    transform: scale(1.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .servicio .marco img { transition: none; }
+    .servicio:hover .marco img { transform: none; }
+}
+
+.servicio h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.servicio p {
+    margin-bottom: 1rem;
+}
+
+.enlace {
+    margin-top: auto;   /* alinea los "Saber más" abajo en todas las tarjetas */
+    color: var(--texto);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--acento);
+    text-decoration-thickness: 3px;
+    text-underline-offset: 5px;
+}
+
+/* ---------- Pruebas sociales ---------- */
+.testimonios {
+    background-color: var(--anochecer);
+    color: var(--crema);
+}
+
+.testimonios-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2.5rem;
+    margin-top: 2.5rem;
+}
+
+.testimonios blockquote {
+    border-left: 4px solid var(--naranja);
+    padding-left: 1.25rem;
+}
+
+.testimonios blockquote p {
+    font-size: 1.15rem;
+}
+
+.testimonios blockquote footer {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.respaldo {
+    margin-top: 3.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.respaldo p {
+    font-size: 0.95rem;
+    opacity: 0.8;
+}
+
+.respaldo ul {
+    list-style: none;
+    margin-top: 0.5rem;
+}
+
+.respaldo li {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+/* ---------- Contacto ---------- */
+.contacto {
+    background-color: var(--naranja);
+    color: var(--marron);
+}
+
+.canales {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin: 2.2rem 0;
+}
+
+.canales dt {
+    font-size: 0.9rem;
+    font-weight: 600;
+    opacity: 0.75;
+}
+
+.canales dd {
+    font-size: clamp(1.3rem, 2.4vw, 1.9rem);
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.contacto .botones {
+    justify-content: flex-start;
+}
+
+/* ---------- Pie de página ---------- */
+.pie {
+    background-color: var(--marron-profundo);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 3.5rem clamp(1.25rem, 6vw, 6rem) 2rem;
+}
+
+.pie-columnas {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.3fr;
+    gap: 2.5rem;
+}
+
+.pie h3 {
+    font-size: 1rem;
+    color: #fff;
+    margin-bottom: 0.8rem;
+}
+
+.pie ul {
+    list-style: none;
+}
+
+.pie li {
+    margin-bottom: 0.45rem;
+}
+
+.pie a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.pie a:hover {
+    text-decoration: underline;
+}
+
+/* El logo tiene texto negro, así que en el pie va sobre una placa clara */
+.pie-logo {
+    display: inline-block;
+    background: var(--crema);
+    border-radius: 14px;
+    padding: 0.5rem 0.7rem;
+    line-height: 0;
+    margin-bottom: 1rem;
+}
+
+.pie-logo img {
+    display: block;
+    width: 96px;
+    height: auto;
+}
+
+.pie-marca p {
+    max-width: 32ch;
+    line-height: 1.6;
+}
+
+.pie-final {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem 2rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    font-size: 0.85rem;
+}
+
+/* ---------- Pantallas pequeñas ---------- */
+@media (max-width: 720px) {
+    header {
+        padding: 0.8rem 1rem;
+    }
+    header.con-fondo {
+        padding: 0.5rem 1rem;
+    }
+    .logo { --ancho-logo: 68px; }
+    header.con-fondo .logo { --ancho-logo: 54px; }
+    .menu { gap: 0.8rem; }
+    .menu li a { font-size: 0.8rem; }
+
+    .hero-texto { top: 12%; }
+    .btn { padding: 0.65rem 1.05rem; font-size: 0.9rem; }
+    .botones { gap: 0.6rem; }
+
+    .nosotros { grid-template-columns: 1fr; }
+    .pie-columnas { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   Página "Nosotros" — se carga DESPUÉS de estilo.css y reutiliza
+   sus variables, botones y secciones (.bloque, .contenedor, etc.)
+   ============================================================ */
+
+/* Página actual marcada en el menú */
+.menu li a[aria-current="page"] {
+    border-bottom-color: var(--naranja);
+}
+
+/* ---------- Portada interna ---------- */
+.hero-interno {
+    padding: clamp(9rem, 22vh, 13rem) clamp(1.25rem, 6vw, 6rem) clamp(3.5rem, 8vw, 5.5rem);
+    background:
+        linear-gradient(180deg, rgba(31, 25, 18, 0.35), rgba(31, 25, 18, 0.85)),
+        url("../IMG/1x/fondo.jpg") center / cover;
+    color: #fff;
+    text-shadow: 0 2px 16px rgba(20, 10, 30, 0.5);
+}
+
+.hero-interno h1 {
+    font-size: clamp(2rem, 5vw, 3.8rem);
+    line-height: 1.08;
+    font-weight: 700;
+    max-width: 18ch;
+}
+
+.hero-interno p {
+    margin-top: 0.9rem;
+    max-width: 42ch;
+    font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+}
+
+/* ---------- Secciones claras y bloques de texto ---------- */
+.claro {
+    background-color: var(--crema);
+    color: var(--texto);
+}
+
+.dos-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(1.5rem, 5vw, 4rem);
+    align-items: start;
+}
+
+.texto p {
+    max-width: 55ch;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.bloque h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+/* ---------- Misión y visión ---------- */
+.par {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2.5rem;
+    margin-top: 2.5rem;
+}
+
+.par article {
+    border-top: 6px solid var(--naranja);
+    padding-top: 1.25rem;
+}
+
+.par p {
+    max-width: 50ch;
+    font-size: 1.1rem;
+}
+
+/* ---------- Marcos de foto (equipo y tarjetas) ----------
+   El texto de ayuda queda debajo de la imagen: cuando subes la foto,
+   la imagen lo tapa; si el archivo no existe, la imagen se quita
+   y se ve el marco con la indicación. */
+.foto {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 18px;
+    border: 2px dashed rgba(246, 239, 226, 0.35);
+    background: rgba(255, 255, 255, 0.06);
+    text-align: center;
+    font-size: 0.9rem;
+    opacity: 1;
+}
+
+.claro .foto {
+    border-color: rgba(42, 33, 24, 0.35);
+    background: rgba(42, 33, 24, 0.06);
+}
+
+.foto img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ---------- Equipo ---------- */
+.equipo-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 2rem;
+    margin-top: 2.5rem;
+}
+
+.miembro figcaption {
+    margin-top: 0.9rem;
+    line-height: 1.4;
+}
+
+.miembro strong {
+    display: block;
+    font-size: 1.1rem;
+}
+
+/* ---------- Valores ---------- */
+.valores-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 2.5rem 2rem;
+    margin-top: 2.5rem;
+}
+
+.valor {
+    border-top: 6px solid var(--acento);
+    padding-top: 1.25rem;
+}
+
+/* ---------- Tarjetas de presentación ---------- */
+.claro .intro code {
+    background: rgba(42, 33, 24, 0.1);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.95em;
+}
+
+.tarjetas-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.75rem;
+    margin-top: 2.5rem;
+}
+
+.foto.tarjeta {
+    aspect-ratio: 9 / 5;   /* proporción de una tarjeta estándar (9 × 5 cm) */
+    border-radius: 12px;
+}
+
+/* La tarjeta se muestra completa, sin recortar */
+.foto.tarjeta img {
+    object-fit: contain;
+    background: #fff;
+    box-shadow: 0 8px 22px rgba(42, 33, 24, 0.22);
+}
+
+@media (max-width: 720px) {
+    .dos-col { grid-template-columns: 1fr; }
+    .tarjetas-lista { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   Página "Servicios" — se carga después de estilo.css y nosotros.css
+   ============================================================ */
+
+.hero-botones {
+    justify-content: flex-start;
+    margin-top: 1.6rem;
+}
+
+.valor .para {
+    margin-top: 0.8rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    opacity: 0.8;
+}
+
+/* ---------- Paquetes ---------- */
+.paquetes-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.75rem;
+    margin-top: 2.5rem;
+    align-items: stretch;
+}
+
+.paquete {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.6rem;
+    border: 2px solid rgba(246, 239, 226, 0.3);
+    border-radius: 18px;
+}
+
+.paquete .precio {
+    margin: 0.4rem 0 1.2rem;
+    font-size: 1.9rem;
+    font-weight: 700;
+    line-height: 1.15;
+}
+
+.paquete .precio span {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+.paquete ul {
+    list-style: none;
+    margin-bottom: 1.8rem;
+}
+
+.paquete li {
+    position: relative;
+    padding-left: 1.6rem;
+    margin-bottom: 0.6rem;
+    line-height: 1.45;
+}
+
+.paquete li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--naranja);
+    font-weight: 700;
+}
+
+.paquete .btn {
+    margin-top: auto;
+    text-align: center;
+}
+
+/* Sobre el fondo oscuro, el botón con borde debe verse claro */
+.paquete .btn-borde {
+    border-color: var(--crema);
+    color: var(--crema);
+}
+
+.paquete .btn-borde:hover {
+    background: var(--crema);
+    color: var(--marron);
+}
+
+/* El paquete recomendado se destaca con un fondo crema */
+.paquete.destacado {
+    background: var(--crema);
+    color: var(--texto);
+    border-color: var(--naranja);
+}
+
+.paquete.destacado li::before {
+    color: #b8690a;
+}
+
+.nota {
+    margin-top: 1.8rem;
+    font-size: 0.95rem;
+    opacity: 0.85;
+}
+
+/* ---------- Logos de anunciantes ---------- */
+.clientes-lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.foto.logo-cliente {
+    aspect-ratio: 3 / 2;
+    border-radius: 12px;
+    font-size: 0.8rem;
+}
+
+.foto.logo-cliente img {
+    object-fit: contain;
+    padding: 0.6rem;
+    background: #fff;
+}
+
+/* ============================================================
+   Página "Contacto" — se carga después de estilo.css y nosotros.css
+   ============================================================ */
+
+.contacto-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: clamp(2rem, 6vw, 5rem);
+    align-items: start;
+}
+
+/* ---------- Formulario ---------- */
+#form-contacto {
+    margin-top: 1.8rem;
+    max-width: 560px;
+}
+
+.campo {
+    margin-bottom: 1.2rem;
+}
+
+.campo label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+}
+
+.campo input,
+.campo textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 2px solid rgba(42, 33, 24, 0.4);
+    border-radius: 10px;
+    background: #fff;
+    color: var(--texto);
+    font-size: 1rem;
+}
+
+.campo textarea {
+    resize: vertical;
+    min-height: 130px;
+}
+
+.campo input:focus-visible,
+.campo textarea:focus-visible,
+.privacidad input:focus-visible {
+    outline: 3px solid var(--marron);
+    outline-offset: 2px;
+}
+
+/* Campo trampa anti-robots: fuera de pantalla */
+.trampa {
+    position: absolute;
+    left: -9999px;
+}
+
+/* ---------- Aviso de privacidad ---------- */
+.privacidad {
+    display: flex;
+    gap: 0.7rem;
+    align-items: flex-start;
+    margin-top: 1.4rem;
+}
+
+.privacidad input {
+    flex: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: 0.2rem;
+    accent-color: var(--marron);
+}
+
+.privacidad-texto {
+    margin: 0.6rem 0 1.5rem 1.95rem;
+    font-size: 0.85rem;
+    line-height: 1.55;
+    opacity: 0.85;
+}
+
+#form-contacto button {
+    cursor: pointer;
+}
+
+#form-contacto button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+#estado-envio {
+    margin-top: 1rem;
+    font-weight: 600;
+}
+
+#estado-envio.ok    { color: #2c6a1b; }
+#estado-envio.error { color: #a12a12; }
+
+/* ---------- Canales y datos ---------- */
+.datos {
+    display: grid;
+    gap: 1.2rem;
+    margin: 1.8rem 0;
+}
+
+.datos dt {
+    font-size: 0.9rem;
+    font-weight: 600;
+    opacity: 0.75;
+}
+
+.datos dd {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.35;
+}
+
+.botones-izq {
+    justify-content: flex-start;
+}
+
+/* ---------- Ubicación y mapa ---------- */
+.ubicacion-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: clamp(1.5rem, 5vw, 3.5rem);
+    align-items: stretch;
+}
+
+.ubicacion-grid .datos {
+    margin: 0;
+    align-content: start;
+}
+
+.mapa {
+    width: 100%;
+    min-height: 340px;
+    border: 0;
+    border-radius: 16px;
+}
+
+@media (max-width: 720px) {
+    .contacto-grid,
+    .ubicacion-grid { grid-template-columns: 1fr; }
+    .privacidad-texto { margin-left: 0; }
+}
